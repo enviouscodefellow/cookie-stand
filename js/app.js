@@ -149,6 +149,7 @@ let tokyo = {
   name: 'Tokyo',
   customers: 0,
   avgSales: 0,
+  hourlyCookies: 0,
   dailyCustTotal: 0,
   dailySalesTotal: 0,
   getSales: function () {
@@ -157,17 +158,41 @@ let tokyo = {
   getCusts: function () {
     this.customers = custsPerHour(this.name);
   },
+
+  getHourlyCookies: function () {
+    this.hourlyCookies = hourlyTotalCookies(this.customers, this.avgSales);
+  },
   getDailyCustTotal: function () {
     this.dailyCustTotal = totalCusts(this.customers);
   },
   getDailySalesTotal: function () {
     this.dailySalesTotal = totalSales(this.avgSales, this.dailyCustTotal);
+  },
+  render: function () {
+    let pElem = document.createElement('p');
+    pElem.textContent = this.name;
+    salesSection.appendChild(pElem);
+
+    let ulElem = document.createElement('ul');
+    pElem.appendChild(ulElem);
+
+    
+    for (let i = 0; i < storeHours.length; i++) {
+      let liElem = document.createElement('li');
+      liElem.textContent = `${storeHours[i]}: ${this.hourlyCookies[i]} cookies`;
+      ulElem.appendChild(liElem);
+    }
+
+    let liElem = document.createElement('li');
+    liElem.textContent = `Total: ${this.dailySalesTotal} cookies`;
+    ulElem.appendChild(liElem);
   },
 };
 let dubai = {
   name: 'Dubai',
   customers: 0,
   avgSales: 0,
+  hourlyCookies: 0,
   dailyCustTotal: 0,
   dailySalesTotal: 0,
   getSales: function () {
@@ -176,17 +201,41 @@ let dubai = {
   getCusts: function () {
     this.customers = custsPerHour(this.name);
   },
+
+  getHourlyCookies: function () {
+    this.hourlyCookies = hourlyTotalCookies(this.customers, this.avgSales);
+  },
   getDailyCustTotal: function () {
     this.dailyCustTotal = totalCusts(this.customers);
   },
   getDailySalesTotal: function () {
     this.dailySalesTotal = totalSales(this.avgSales, this.dailyCustTotal);
+  },
+  render: function () {
+    let pElem = document.createElement('p');
+    pElem.textContent = this.name;
+    salesSection.appendChild(pElem);
+
+    let ulElem = document.createElement('ul');
+    pElem.appendChild(ulElem);
+
+    
+    for (let i = 0; i < storeHours.length; i++) {
+      let liElem = document.createElement('li');
+      liElem.textContent = `${storeHours[i]}: ${this.hourlyCookies[i]} cookies`;
+      ulElem.appendChild(liElem);
+    }
+
+    let liElem = document.createElement('li');
+    liElem.textContent = `Total: ${this.dailySalesTotal} cookies`;
+    ulElem.appendChild(liElem);
   },
 };
 let paris = {
   name: 'Paris',
   customers: 0,
   avgSales: 0,
+  hourlyCookies: 0,
   dailyCustTotal: 0,
   dailySalesTotal: 0,
   getSales: function () {
@@ -195,17 +244,41 @@ let paris = {
   getCusts: function () {
     this.customers = custsPerHour(this.name);
   },
+
+  getHourlyCookies: function () {
+    this.hourlyCookies = hourlyTotalCookies(this.customers, this.avgSales);
+  },
   getDailyCustTotal: function () {
     this.dailyCustTotal = totalCusts(this.customers);
   },
   getDailySalesTotal: function () {
     this.dailySalesTotal = totalSales(this.avgSales, this.dailyCustTotal);
+  },
+  render: function () {
+    let pElem = document.createElement('p');
+    pElem.textContent = this.name;
+    salesSection.appendChild(pElem);
+
+    let ulElem = document.createElement('ul');
+    pElem.appendChild(ulElem);
+
+    
+    for (let i = 0; i < storeHours.length; i++) {
+      let liElem = document.createElement('li');
+      liElem.textContent = `${storeHours[i]}: ${this.hourlyCookies[i]} cookies`;
+      ulElem.appendChild(liElem);
+    }
+
+    let liElem = document.createElement('li');
+    liElem.textContent = `Total: ${this.dailySalesTotal} cookies`;
+    ulElem.appendChild(liElem);
   },
 };
 let lima = {
   name: 'Lima',
   customers: 0,
   avgSales: 0,
+  hourlyCookies: 0,
   dailyCustTotal: 0,
   dailySalesTotal: 0,
   getSales: function () {
@@ -214,11 +287,34 @@ let lima = {
   getCusts: function () {
     this.customers = custsPerHour(this.name);
   },
+
+  getHourlyCookies: function () {
+    this.hourlyCookies = hourlyTotalCookies(this.customers, this.avgSales);
+  },
   getDailyCustTotal: function () {
     this.dailyCustTotal = totalCusts(this.customers);
   },
   getDailySalesTotal: function () {
     this.dailySalesTotal = totalSales(this.avgSales, this.dailyCustTotal);
+  },
+  render: function () {
+    let pElem = document.createElement('p');
+    pElem.textContent = this.name;
+    salesSection.appendChild(pElem);
+
+    let ulElem = document.createElement('ul');
+    pElem.appendChild(ulElem);
+
+    
+    for (let i = 0; i < storeHours.length; i++) {
+      let liElem = document.createElement('li');
+      liElem.textContent = `${storeHours[i]}: ${this.hourlyCookies[i]} cookies`;
+      ulElem.appendChild(liElem);
+    }
+
+    let liElem = document.createElement('li');
+    liElem.textContent = `Total: ${this.dailySalesTotal} cookies`;
+    ulElem.appendChild(liElem);
   },
 };
 
@@ -232,35 +328,43 @@ seattle.getDailyCustTotal();
 seattle.getDailySalesTotal();
 tokyo.getCusts();
 tokyo.getSales();
+tokyo.getHourlyCookies();
 tokyo.getDailyCustTotal();
 tokyo.getDailySalesTotal();
 dubai.getCusts();
 dubai.getSales();
+dubai.getHourlyCookies();
 dubai.getDailyCustTotal();
 dubai.getDailySalesTotal();
 paris.getCusts();
 paris.getSales();
+paris.getHourlyCookies();
 paris.getDailyCustTotal();
 paris.getDailySalesTotal();
 lima.getCusts();
 lima.getSales();
+lima.getHourlyCookies();
 lima.getDailyCustTotal();
 lima.getDailySalesTotal();
 
 seattle.render();
+tokyo.render();
+dubai.render();
+paris.render();
+lima.render();
 
-console.log(seattle);
-console.log(totalCusts(seattle.customers));
-console.log(totalSales(seattle.avgSales, seattle.dailyCustTotal));
-console.log(tokyo);
-console.log(totalCusts(tokyo.customers));
-console.log(totalSales(tokyo.avgSales, seattle.dailyCustTotal));
-console.log(dubai);
-console.log(totalCusts(dubai.customers));
-console.log(totalSales(dubai.avgSales, seattle.dailyCustTotal));
-console.log(paris);
-console.log(totalCusts(paris.customers));
-console.log(totalSales(paris.avgSales, seattle.dailyCustTotal));
-console.log(lima);
-console.log(totalCusts(lima.customers));
-console.log(totalSales(lima.avgSales, seattle.dailyCustTotal));
+// console.log(seattle);
+// console.log(totalCusts(seattle.customers));
+// console.log(totalSales(seattle.avgSales, seattle.dailyCustTotal));
+// console.log(tokyo);
+// console.log(totalCusts(tokyo.customers));
+// console.log(totalSales(tokyo.avgSales, seattle.dailyCustTotal));
+// console.log(dubai);
+// console.log(totalCusts(dubai.customers));
+// console.log(totalSales(dubai.avgSales, seattle.dailyCustTotal));
+// console.log(paris);
+// console.log(totalCusts(paris.customers));
+// console.log(totalSales(paris.avgSales, seattle.dailyCustTotal));
+// console.log(lima);
+// console.log(totalCusts(lima.customers));
+// console.log(totalSales(lima.avgSales, seattle.dailyCustTotal));
