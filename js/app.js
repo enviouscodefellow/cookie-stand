@@ -40,10 +40,10 @@ let maxCusts = [65, 24, 38, 38, 16];
 
 let avgSales = [6.3, 1.2, 3.7, 2.3, 4.6];
 
-// DOM MANIPULATION STEP 1: WINDOW INTO YOUR HTML DOCUMENT
+let salesSection = document.getElementById('cookie-stand');
 
-// let salesSection = document.getElementById('cookie-stand');
-// console.dir(salesSection);
+console.dir(salesSection);
+
 // **** HELPER FUNCTIONS - UTILITES *****
 
 // used from MDN docs
