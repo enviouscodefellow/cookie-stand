@@ -111,6 +111,15 @@ let seattle = {
   getDailySalesTotal: function () {
     this.dailySalesTotal = totalSales(this.avgSales, this.dailyCustTotal);
   },
+  render: function(){
+    let ulElem = document.createElement('ul');
+    salesSection.appendChild(ulElem);
+    for (let i = 0; i < storeHours.length; i++) {
+      let liElem = document.createElement('li');
+      liElem.textContent = storeHours[i];
+      ulElem.appendChild(liElem);
+    }
+  }
 };
 
 let tokyo = {
