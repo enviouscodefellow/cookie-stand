@@ -40,14 +40,14 @@ let maxCusts = [65, 24, 38, 38, 16];
 
 let avgSales = [6.3, 1.2, 3.7, 2.3, 4.6];
 
-let salesSection = document.getElementById('cookie-stand');
+let salesSection = document.getElementById('sales-section');
 
 console.dir(salesSection);
 
 // **** HELPER FUNCTIONS - UTILITES *****
 
 // used from MDN docs
-function custs(loc) {
+function custsPerHour(loc) {
   let randCustomers = new Array(storeHours.length);
   for (let i = 0; i < locations.length; i++) {
     if (loc === locations[i]) {
@@ -86,8 +86,16 @@ function totalCusts(customer) {
   return custTotalDaily;
 }
 
+function hourlyTotalCookies(custPerHour, avgSale) {
+  let cookiesHourlyTotalsArray = new Array(storeHours.length);
+  for (let i = 0; i < storeHours.length; i++) {
+    cookiesHourlyTotalsArray[i] = Math.trunc(custPerHour[i] * avgSale);
+  }
+  return cookiesHourlyTotalsArray;
+}
+
 function totalSales(avgSale, totalCusts) {
-  let salesTotalDaily = totalCusts * avgSale;
+  let salesTotalDaily = Math.trunc(totalCusts * avgSale);
   return salesTotalDaily;
 }
 
@@ -97,13 +105,18 @@ let seattle = {
   name: 'Seattle',
   customers: 0,
   avgSales: 0,
+  hourlyCookies: 0,
   dailyCustTotal: 0,
   dailySalesTotal: 0,
   getSales: function () {
     this.avgSales = sales(this.name);
   },
   getCusts: function () {
-    this.customers = custs(this.name);
+    this.customers = custsPerHour(this.name);
+  },
+
+  getHourlyCookies: function () {
+    this.hourlyCookies = hourlyTotalCookies(this.customers, this.avgSales);
   },
   getDailyCustTotal: function () {
     this.dailyCustTotal = totalCusts(this.customers);
@@ -111,15 +124,25 @@ let seattle = {
   getDailySalesTotal: function () {
     this.dailySalesTotal = totalSales(this.avgSales, this.dailyCustTotal);
   },
-  render: function(){
+  render: function () {
+    let pElem = document.createElement('p');
+    pElem.textContent = this.name;
+    salesSection.appendChild(pElem);
+
     let ulElem = document.createElement('ul');
-    salesSection.appendChild(ulElem);
+    pElem.appendChild(ulElem);
+
+    
     for (let i = 0; i < storeHours.length; i++) {
       let liElem = document.createElement('li');
-      liElem.textContent = storeHours[i];
+      liElem.textContent = `${storeHours[i]}: ${this.hourlyCookies[i]} cookies`;
       ulElem.appendChild(liElem);
     }
-  }
+
+    let liElem = document.createElement('li');
+    liElem.textContent = `Total: ${this.dailySalesTotal} cookies`;
+    ulElem.appendChild(liElem);
+  },
 };
 
 let tokyo = {
@@ -132,14 +155,14 @@ let tokyo = {
     this.avgSales = sales(this.name);
   },
   getCusts: function () {
-    this.customers = custs(this.name);
+    this.customers = custsPerHour(this.name);
   },
   getDailyCustTotal: function () {
     this.dailyCustTotal = totalCusts(this.customers);
   },
   getDailySalesTotal: function () {
     this.dailySalesTotal = totalSales(this.avgSales, this.dailyCustTotal);
-  }
+  },
 };
 let dubai = {
   name: 'Dubai',
@@ -151,14 +174,14 @@ let dubai = {
     this.avgSales = sales(this.name);
   },
   getCusts: function () {
-    this.customers = custs(this.name);
+    this.customers = custsPerHour(this.name);
   },
   getDailyCustTotal: function () {
     this.dailyCustTotal = totalCusts(this.customers);
   },
   getDailySalesTotal: function () {
     this.dailySalesTotal = totalSales(this.avgSales, this.dailyCustTotal);
-  }
+  },
 };
 let paris = {
   name: 'Paris',
@@ -170,14 +193,14 @@ let paris = {
     this.avgSales = sales(this.name);
   },
   getCusts: function () {
-    this.customers = custs(this.name);
+    this.customers = custsPerHour(this.name);
   },
   getDailyCustTotal: function () {
     this.dailyCustTotal = totalCusts(this.customers);
   },
   getDailySalesTotal: function () {
     this.dailySalesTotal = totalSales(this.avgSales, this.dailyCustTotal);
-  }
+  },
 };
 let lima = {
   name: 'Lima',
@@ -189,14 +212,14 @@ let lima = {
     this.avgSales = sales(this.name);
   },
   getCusts: function () {
-    this.customers = custs(this.name);
+    this.customers = custsPerHour(this.name);
   },
   getDailyCustTotal: function () {
     this.dailyCustTotal = totalCusts(this.customers);
   },
   getDailySalesTotal: function () {
     this.dailySalesTotal = totalSales(this.avgSales, this.dailyCustTotal);
-  }
+  },
 };
 
 // ******** DOM MANIPULATION ********
@@ -204,6 +227,7 @@ let lima = {
 //  ***** EXECUTABLE CODE *********
 seattle.getCusts();
 seattle.getSales();
+seattle.getHourlyCookies();
 seattle.getDailyCustTotal();
 seattle.getDailySalesTotal();
 tokyo.getCusts();
@@ -223,18 +247,20 @@ lima.getSales();
 lima.getDailyCustTotal();
 lima.getDailySalesTotal();
 
+seattle.render();
+
 console.log(seattle);
 console.log(totalCusts(seattle.customers));
-console.log(totalSales(seattle.avgSales,seattle.dailyCustTotal));
+console.log(totalSales(seattle.avgSales, seattle.dailyCustTotal));
 console.log(tokyo);
 console.log(totalCusts(tokyo.customers));
-console.log(totalSales(tokyo.avgSales,seattle.dailyCustTotal));
+console.log(totalSales(tokyo.avgSales, seattle.dailyCustTotal));
 console.log(dubai);
 console.log(totalCusts(dubai.customers));
-console.log(totalSales(dubai.avgSales,seattle.dailyCustTotal));
+console.log(totalSales(dubai.avgSales, seattle.dailyCustTotal));
 console.log(paris);
 console.log(totalCusts(paris.customers));
-console.log(totalSales(paris.avgSales,seattle.dailyCustTotal));
+console.log(totalSales(paris.avgSales, seattle.dailyCustTotal));
 console.log(lima);
 console.log(totalCusts(lima.customers));
-console.log(totalSales(lima.avgSales,seattle.dailyCustTotal));
+console.log(totalSales(lima.avgSales, seattle.dailyCustTotal));
