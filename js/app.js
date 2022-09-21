@@ -94,6 +94,7 @@ function hourlyTotalCookies(custPerHour, avgSale) {
     cookiesHourlyTotalsArray[i] = Math.trunc(custPerHour[i] * avgSale);
   }
   return cookiesHourlyTotalsArray;
+  
 }
 
 function totalSales(avgSale, totalCusts) {
@@ -136,26 +137,89 @@ CookieStand.prototype.getDailySalesTotal = function () {
 
 CookieStand.prototype.render = function () {
   let pElem = document.createElement('p');
-  pElem.textContent = this.name;
   salesSection.appendChild(pElem);
 
-  let ulElem = document.createElement('ul');
-  pElem.appendChild(ulElem);
+  let tableElem = document.createElement('table');
+  pElem.appendChild(tableElem);
+
+  let theadElem = document.createElement('thead');
+  tableElem.appendChild(theadElem);
+
+  let trElem = document.createElement('tr');
+  theadElem.appendChild(trElem);
 
   for (let i = 0; i < storeHours.length; i++) {
-    let liElem = document.createElement('li');
-    liElem.textContent = `${storeHours[i]}: ${this.hourlyCookies[i]} cookies`;
-    ulElem.appendChild(liElem);
+    let thElem = document.createElement('th');
+    thElem.textContent = `${storeHours[i]}`;
+    trElem.appendChild(thElem);
   }
 
-  let liElem = document.createElement('li');
-  liElem.textContent = `Total: ${this.dailySalesTotal} cookies`;
-  ulElem.appendChild(liElem);
+  let tbodyElem = document.createElement('tbody');
+  tableElem.appendChild(tbodyElem);
+  
+  let trElemRow1 = document.createElement('tr');
+  tbodyElem.appendChild(trElemRow1);
+
+  for (let i = 0; i < storeHours.length; i++) {
+    let thElem = document.createElement('td');
+    thElem.textContent = this.hourlyCookies[i];
+    trElemRow1.appendChild(thElem);
+  }
+
+  let trElemRow2 = document.createElement('tr');
+  tbodyElem.appendChild(trElemRow2);
+
+  for (let i = 0; i < storeHours.length; i++) {
+    let thElem = document.createElement('td');
+    thElem.textContent = this.hourlyCookies[i];
+    trElemRow2.appendChild(thElem);
+  }
+
+  let trElemRow3 = document.createElement('tr');
+  tbodyElem.appendChild(trElemRow3);
+
+  for (let i = 0; i < storeHours.length; i++) {
+    let thElem = document.createElement('td');
+    thElem.textContent = this.hourlyCookies[i];
+    trElemRow3.appendChild(thElem);
+  }
+
+  let trElemRow4 = document.createElement('tr');
+  tbodyElem.appendChild(trElemRow4);
+
+  for (let i = 0; i < storeHours.length; i++) {
+    let thElem = document.createElement('td');
+    thElem.textContent = this.hourlyCookies[i];
+    trElemRow4.appendChild(thElem);
+  }
+
+  let trElemRow5 = document.createElement('tr');
+  tbodyElem.appendChild(trElemRow5);
+
+  for (let i = 0; i < storeHours.length; i++) {
+    let thElem = document.createElement('td');
+    thElem.textContent = this.hourlyCookies[i];
+    trElemRow5.appendChild(thElem);
+  }
+
+  let tfootElem = document.createElement('tfoot');
+  tableElem.appendChild(tfootElem);
+  
+  let trElemFoot = document.createElement('tr');
+  tfootElem.appendChild(trElemFoot);
+
+  for (let i = 0; i < storeHours.length; i++) {
+    let thElem = document.createElement('td');
+    thElem.textContent = this.dailySalesTotal[i];
+    trElemFoot.appendChild(thElem);
+  }
 };
+
+  
 
 // ****** CREATE OBJECTS W/CONSTRUCTOR *******
 
-for (let i=0; i<locations.length; i++){
+for (let i = 0; i < locations.length; i++) {
   new CookieStand(locations[i]);
 }
 
