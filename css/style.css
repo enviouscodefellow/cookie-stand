@@ -1,0 +1,43 @@
+body {
+  background-color: olive;
+  font-family: 'Courier New', Courier, monospace;
+}
+
+header {
+  font-size: 5vw;
+}
+
+main {
+  font-size: 15vw;
+}
+
+h1 {
+  font-size: 10vw;
+  color: darkolivegreen;
+}
+
+ol {
+  margin-left: 15vw;
+  list-style-type: decimal-leading-zero;
+  /* list-style-position: outside; */
+}
+
+ul {
+  margin-left: 7vw;
+  list-style-type:disc;
+  padding: 5vw;
+  
+}
+
+li {
+  font-size: 5vw;
+  color: tan;
+  /* padding: 1vw; */
+  
+}
+
+p {
+  font-size: 5vw;
+  color: tan;
+  padding: 5vw;  
+}
