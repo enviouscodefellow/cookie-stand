@@ -9,11 +9,56 @@ header {
 
 main {
   font-size: 15vw;
+  padding: 10vw;
 }
+
+
+thead{
+  font-size: 5vw;
+  color: darkolivegreen;
+  padding: 3vw; 
+  text-align: center; 
+  
+}
+
+tbody{
+  font-size: 5vw;
+  color: tan;
+  padding: 3vw;  
+  text-align: right;
+}
+
+tfoot{
+  font-size: 5vw;
+  color: goldenrod;
+  padding: 3vw;
+  text-align: right;
+  }
+
+th {
+  /* font-size: 5vw;
+  color: tan; */
+  padding: 1vw;  
+}
+
+/* td {
+  font-size: 5vw;
+  color: tan;
+  padding: 3vw;  
+} */
+
+/* footer {
+  font-size: 5vw;
+} */
 
 h1 {
   font-size: 10vw;
   color: darkolivegreen;
+}
+
+h2{
+  font-size: 7vw;
+  padding: 5vw;
 }
 
 ol {
@@ -22,7 +67,7 @@ ol {
   /* list-style-position: outside; */
 }
 
-ul {
+/* ul {
   margin-left: 7vw;
   list-style-type:disc;
   padding: 5vw;
@@ -32,12 +77,11 @@ ul {
 li {
   font-size: 5vw;
   color: tan;
-  /* padding: 1vw; */
-  
-}
+  padding: 1vw;
+  } */
 
-p {
+/* p {
   font-size: 5vw;
   color: tan;
   padding: 5vw;  
-}
+} */
