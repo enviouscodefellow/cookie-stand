@@ -61,27 +61,31 @@ h2{
   padding: 5vw;
 }
 
+h3{
+  font-size: 7vw;
+  padding: 5vw;
+}
+
 ol {
   margin-left: 15vw;
   list-style-type: decimal-leading-zero;
   /* list-style-position: outside; */
 }
 
-/* ul {
+ ul {
   margin-left: 7vw;
   list-style-type:disc;
-  padding: 5vw;
-  
+  padding: 2vw;
+  }
+
+  li {
+    font-size: 5vw;
+    color: darkolivegreen;
+    padding: 1vw;
+    }
+
+p {
+  font-size: 5vw;
+  color: tan;
+  padding: 2vw;  
 }
-
-li {
-  font-size: 5vw;
-  color: tan;
-  padding: 1vw;
-  } */
-
-/* p {
-  font-size: 5vw;
-  color: tan;
-  padding: 5vw;  
-} */
