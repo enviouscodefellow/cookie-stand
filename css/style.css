@@ -89,3 +89,37 @@ p {
   color: tan;
   padding: 2vw;  
 }
+
+legend{
+  font-size: 7vw;
+  padding: 5vw;
+}
+
+label{
+  font-size: 5vw;
+  color: darkolivegreen;
+  padding: 3vw; 
+  text-align: center; 
+  }
+
+input{
+display: flex;
+margin-left: 7vw;
+padding: 2vw;
+width: 30vw
+}
+
+input:hover{
+  background-color: tan;
+}
+
+button{
+  margin-left: 9vw;
+padding: 2vw;
+width: 30vw;
+margin-bottom: 10vw;
+}
+
+button:hover{
+  background-color: tan;
+}
