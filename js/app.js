@@ -49,9 +49,24 @@ let locationGrandTotalsDaily;
 
 let salesSection = document.getElementById('sales-section');
 
+// **** FORM STEP 1: GRAB THE ELEMENT TO LISTEN TO! ******
+let cookieForm = document.getElementById('cookie-form');
+
 console.dir(salesSection);
 
 // **** HELPER FUNCTIONS - UTILITES *****
+
+function removeTfoot() {
+  let tFoot = document.querySelector('tfoot');
+  tFoot.parentNode.removeChild(tFoot);
+}
+
+function removeTbody() {
+  for (let i = 0; i < locations.length - 1; i++) {
+    let tBody = document.querySelector('tbody');
+    tBody.parentNode.removeChild(tBody);
+  }
+}
 
 // used from MDN docs
 function custsPerHour(loc) {
@@ -147,16 +162,15 @@ CookieStand.prototype.render = function () {
 
   let trElemRow1 = document.createElement('tr');
   tbodyElem.appendChild(trElemRow1);
-  
+
   let thElem2 = document.createElement('td');
   thElem2.textContent = this.name;
   trElemRow1.appendChild(thElem2);
 
-  
   for (let i = 0; i < storeHours.length; i++) {
     let thElem = document.createElement('td');
     thElem.textContent = this.hourlyCookies[i];
-    trElemRow1.appendChild(thElem);    
+    trElemRow1.appendChild(thElem);
   }
   let thElem3 = document.createElement('td');
   thElem3.textContent = this.dailySalesTotal;
@@ -213,8 +227,8 @@ function createHeader() {
   theadElem.appendChild(trElem);
 
   let thElemPush = document.createElement('th');
-    thElemPush.textContent = `Hour:`;
-    trElem.appendChild(thElemPush);
+  thElemPush.textContent = `Hour:`;
+  trElem.appendChild(thElemPush);
 
   for (let i = 0; i < storeHours.length; i++) {
     let thElem = document.createElement('th');
@@ -271,11 +285,16 @@ function grandTotalAll() {
   }
 }
 
-
 // ****** CREATE OBJECTS W/CONSTRUCTOR *******
 
-for (let i = 0; i < locations.length; i++) {
-  new CookieStand(locations[i]);
+function buildTable() {
+  for (let i = 0; i < locations.length; i++) {
+    new CookieStand(locations[i]);
+  }
+}
+
+function rebuildTable(name) {
+  new CookieStand(name);
 }
 
 function makeCookies() {
@@ -288,6 +307,23 @@ function makeCookies() {
     locationsObjects[i].render();
   }
 }
+//FIXME//
+// function remakeCookies(name) {
+//   name.getCusts();
+//   name.getSales();
+//   name.getHourlyCookies();
+//   name.getDailyCustTotal();
+//   name.getDailySalesTotal();
+//   let thElem = document.createElement('td');
+//   thElem.textContent = name.hourlyCookies;
+//   trElemRow1.appendChild(thElem);
+
+//   let thElem3 = document.createElement('td');
+//   thElem3.textContent = name.dailySalesTotal;
+//   trElemRow1.appendChild(thElem3);
+// }
+
+buildTable();
 makeCookies();
 console.log(locationsObjects);
 hourlyCookieTotalsAll();
@@ -298,12 +334,69 @@ console.log(locationGrandTotalsDaily);
 createHeader();
 createFooter();
 
+//************FORM function*********** */
+
+// ******** FORM DEMO ************
+
+// **** STEP 3: define our callback *****
+// goal: add new cookiestand and display on submit
+// ** CALLED ON SUBMIT ACTION
+function handleSubmit(event) {
+  // ** STOP DEFAULT BEHAVIOUR
+  event.preventDefault();
+
+  // ** GATHER INFORMATION FROM FROM**
+  let name = event.target.cityName.value;
+  let min = event.target.minCusts.value;
+  let max = event.target.maxCusts.value;
+  let avg = event.target.avgSales.value;
+
+  console.log(name);
+  console.log(min);
+  console.log(max);
+  console.log(avg);
+
+  locations.push(name);
+  minCusts.push(min);
+  maxCusts.push(max);
+  avgSales.push(avg);
+
+  console.log(locationsObjects);
+  console.log(minCusts);
+  console.log(maxCusts);
+  console.log(avgSales);
+
+  // ** CREATE NEW FRANCHISE OBJECT VIA CONSTRUCTOR **
+  rebuildTable(name);
+
+  // ** RENDER OUR FRANCHISE ON SCREEN **
+
+  removeTbody();
+  removeTfoot();
+  makeCookies();
+  console.log(locationsObjects);
+  hourlyCookieTotalsAll();
+  console.log(locationTotalsDaily);
+  grandTotalAll();
+  console.log(locationGrandTotalsDaily);
+
+  createFooter();
+
+  // ** CLEAR FORM FOR THE NEXT INPUT **
+  cookieForm.reset();
+}
+
+// ****** STEP 2: ATTACH EVENT LISTENER: type of event, and our callback function or event handler ******
+cookieForm.addEventListener('submit', handleSubmit);
+
+// ** LAB HINT - REMOVE YOUR FOOTER, ADD YOUR ROW, RE-ADD YOUR FOOTER
+
 // ****** OBJECT LITERALS *******
 // let seattle = {
-  //   name: 'Seattle',
-  //   customers: 0,
-  //   avgSales: 0,
-  //   hourlyCookies: 0,
+//   name: 'Seattle',
+//   customers: 0,
+//   avgSales: 0,
+//   hourlyCookies: 0,
 //   dailyCustTotal: 0,
 //   dailySalesTotal: 0,
 //   getSales: function () {
@@ -317,49 +410,6 @@ createFooter();
 //     this.hourlyCookies = hourlyTotalCookies(this.customers, this.avgSales);
 //   },
 //   getDailyCustTotal: function () {
-  //     this.dailyCustTotal = totalCusts(this.customers);
-  //   },
-//   getDailySalesTotal: function () {
-  //     this.dailySalesTotal = totalSales(this.avgSales, this.dailyCustTotal);
-  //   },
-  //   render: function () {
-//     let pElem = document.createElement('p');
-//     pElem.textContent = this.name;
-//     salesSection.appendChild(pElem);
-
-//     let ulElem = document.createElement('ul');
-//     pElem.appendChild(ulElem);
-
-//     for (let i = 0; i < storeHours.length; i++) {
-  //       let liElem = document.createElement('li');
-  //       liElem.textContent = `${storeHours[i]}: ${this.hourlyCookies[i]} cookies`;
-  //       ulElem.appendChild(liElem);
-  //     }
-  
-//     let liElem = document.createElement('li');
-//     liElem.textContent = `Total: ${this.dailySalesTotal} cookies`;
-//     ulElem.appendChild(liElem);
-//   },
-// };
-
-// let tokyo = {
-  //   name: 'Tokyo',
-  //   customers: 0,
-  //   avgSales: 0,
-  //   hourlyCookies: 0,
-//   dailyCustTotal: 0,
-//   dailySalesTotal: 0,
-//   getSales: function () {
-  //     this.avgSales = sales(this.name);
-  //   },
-//   getCusts: function () {
-  //     this.customers = custsPerHour(this.name);
-  //   },
-  
-//   getHourlyCookies: function () {
-  //     this.hourlyCookies = hourlyTotalCookies(this.customers, this.avgSales);
-  //   },
-  //   getDailyCustTotal: function () {
 //     this.dailyCustTotal = totalCusts(this.customers);
 //   },
 //   getDailySalesTotal: function () {
@@ -374,8 +424,51 @@ createFooter();
 //     pElem.appendChild(ulElem);
 
 //     for (let i = 0; i < storeHours.length; i++) {
-  //       let liElem = document.createElement('li');
-  //       liElem.textContent = `${storeHours[i]}: ${this.hourlyCookies[i]} cookies`;
+//       let liElem = document.createElement('li');
+//       liElem.textContent = `${storeHours[i]}: ${this.hourlyCookies[i]} cookies`;
+//       ulElem.appendChild(liElem);
+//     }
+
+//     let liElem = document.createElement('li');
+//     liElem.textContent = `Total: ${this.dailySalesTotal} cookies`;
+//     ulElem.appendChild(liElem);
+//   },
+// };
+
+// let tokyo = {
+//   name: 'Tokyo',
+//   customers: 0,
+//   avgSales: 0,
+//   hourlyCookies: 0,
+//   dailyCustTotal: 0,
+//   dailySalesTotal: 0,
+//   getSales: function () {
+//     this.avgSales = sales(this.name);
+//   },
+//   getCusts: function () {
+//     this.customers = custsPerHour(this.name);
+//   },
+
+//   getHourlyCookies: function () {
+//     this.hourlyCookies = hourlyTotalCookies(this.customers, this.avgSales);
+//   },
+//   getDailyCustTotal: function () {
+//     this.dailyCustTotal = totalCusts(this.customers);
+//   },
+//   getDailySalesTotal: function () {
+//     this.dailySalesTotal = totalSales(this.avgSales, this.dailyCustTotal);
+//   },
+//   render: function () {
+//     let pElem = document.createElement('p');
+//     pElem.textContent = this.name;
+//     salesSection.appendChild(pElem);
+
+//     let ulElem = document.createElement('ul');
+//     pElem.appendChild(ulElem);
+
+//     for (let i = 0; i < storeHours.length; i++) {
+//       let liElem = document.createElement('li');
+//       liElem.textContent = `${storeHours[i]}: ${this.hourlyCookies[i]} cookies`;
 //       ulElem.appendChild(liElem);
 //     }
 
@@ -392,28 +485,28 @@ createFooter();
 //   dailyCustTotal: 0,
 //   dailySalesTotal: 0,
 //   getSales: function () {
-  //     this.avgSales = sales(this.name);
+//     this.avgSales = sales(this.name);
 //   },
 //   getCusts: function () {
-  //     this.customers = custsPerHour(this.name);
-  //   },
-  
-  //   getHourlyCookies: function () {
-    //     this.hourlyCookies = hourlyTotalCookies(this.customers, this.avgSales);
-    //   },
-    //   getDailyCustTotal: function () {
+//     this.customers = custsPerHour(this.name);
+//   },
+
+//   getHourlyCookies: function () {
+//     this.hourlyCookies = hourlyTotalCookies(this.customers, this.avgSales);
+//   },
+//   getDailyCustTotal: function () {
 //     this.dailyCustTotal = totalCusts(this.customers);
 //   },
 //   getDailySalesTotal: function () {
-  //     this.dailySalesTotal = totalSales(this.avgSales, this.dailyCustTotal);
-  //   },
-  //   render: function () {
-    //     let pElem = document.createElement('p');
-    //     pElem.textContent = this.name;
-    //     salesSection.appendChild(pElem);
+//     this.dailySalesTotal = totalSales(this.avgSales, this.dailyCustTotal);
+//   },
+//   render: function () {
+//     let pElem = document.createElement('p');
+//     pElem.textContent = this.name;
+//     salesSection.appendChild(pElem);
 
-    //     let ulElem = document.createElement('ul');
-    //     pElem.appendChild(ulElem);
+//     let ulElem = document.createElement('ul');
+//     pElem.appendChild(ulElem);
 
 //     for (let i = 0; i < storeHours.length; i++) {
 //       let liElem = document.createElement('li');
