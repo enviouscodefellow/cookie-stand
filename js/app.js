@@ -50,6 +50,7 @@ let avgSalesCore = [6.3, 1.2, 3.7, 2.3, 4.6];
 let locationsObjects = [];
 
 let cookieTotalsHourly = [];
+let sumTotal = 0;
 let cookieGrandTotalsHourly = [];
 let locationTotalsDaily = [];
 let locationGrandTotalsDaily;
@@ -123,16 +124,25 @@ function createFooter() {
   thElemFoot2.textContent = `${locationGrandTotalsDaily}`;
   trElemFoot.appendChild(thElemFoot2);
 }
-
+//FIXME?????????????????????????
 function hourlyCookieTotalsAll() {
-  let sumTotal = 0;
-  for (let i = 0; i < cookieTotalsHourly[0].length; i++) {
-    for (let j = 0; j < cookieTotalsHourly.length; j++) {
-      sumTotal += cookieTotalsHourly[j][i];
-      // console.log(sumTotal);
-    }
-    cookieGrandTotalsHourly.push(sumTotal);
+  if(cookieTotalsHourly.length <6){
     sumTotal = 0;
+    for (let i = 0; i < cookieTotalsHourly[0].length; i++) {
+      for (let j = 0; j < cookieTotalsHourly.length; j++) {
+        sumTotal += cookieTotalsHourly[j][i];
+        // console.log(sumTotal);
+      }
+      cookieGrandTotalsHourly.push(sumTotal);
+      sumTotal = 0;
+    }
+  } else{
+    for (let j = 0; j < cookieTotalsHourly.length; j++) {
+      sumTotal += cookieTotalsHourly[j][cookieTotalsHourly.length];
+      // console.log(sumTotal);
+      cookieGrandTotalsHourly.pop(0);
+      cookieGrandTotalsHourly.push(sumTotal);
+    }
   }
 }
 
@@ -174,14 +184,14 @@ function packageCookies() {
   }
 }
 
-function repackageCookies(newCookieStand){
-  locationsObjects[locationsObjects.length].getCusts();
-  locationsObjects[locationsObjects.length].getSales();
-  locationsObjects[locationsObjects.length].getHourlyCookies();
-  locationsObjects[locationsObjects.length].getDailyCustTotal();
-  locationsObjects[locationsObjects.length].getDailySalesTotal();
-  locationsObjects[locationsObjects.length].render();
-}
+// function repackageCookies(){
+//   locationsObjects[locationsObjects.length].getCusts();
+//   locationsObjects[locationsObjects.length].getSales();
+//   locationsObjects[locationsObjects.length].getHourlyCookies();
+//   locationsObjects[locationsObjects.length].getDailyCustTotal();
+//   locationsObjects[locationsObjects.length].getDailySalesTotal();
+//   locationsObjects[locationsObjects.length].render();
+// }
 
 function custsPerHour(loc) {
   let randCustomers = new Array(storeHours.length);
@@ -336,6 +346,7 @@ console.log(locationsObjects);
 hourlyCookieTotalsAll();
 console.log(locationTotalsDaily);
 grandTotalAll();
+console.log(cookieTotalsHourly);
 console.log(locationGrandTotalsDaily);
 
 createHeader();
@@ -372,16 +383,22 @@ function handleSubmit(event) {
   console.log(minCusts);
   console.log(maxCusts);
   console.log(avgSales);
+  console.log(cookieTotalsHourly);
 
   // ** CREATE NEW FRANCHISE OBJECT VIA CONSTRUCTOR **
   remakeCookies(name);
+  // repackageCookies(name);
+  console.log(locationsObjects);
+  console.log(minCusts);
+  console.log(maxCusts);
+  console.log(avgSales);
+  console.log(cookieTotalsHourly);
 
   // ** RENDER OUR FRANCHISE ON SCREEN **
 
   removeTbody();
   removeTfoot();
   packageCookies();
-  console.log(locationsObjects);
   hourlyCookieTotalsAll();
   console.log(locationTotalsDaily);
   grandTotalAll();

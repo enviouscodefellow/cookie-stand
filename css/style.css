@@ -1,6 +1,7 @@
 body {
   background-color: olive;
-  font-family: 'Courier New', Courier, monospace;
+  color: black;
+  font-family: 'Noto Sans Mono', monospace;
 }
 
 header {
@@ -18,6 +19,7 @@ thead{
   color: darkolivegreen;
   padding: 3vw; 
   text-align: center; 
+  background-color: black;
   
 }
 
@@ -26,6 +28,7 @@ tbody{
   color: tan;
   padding: 3vw;  
   text-align: right;
+  background-color: darkolivegreen;
 }
 
 tfoot{
@@ -33,6 +36,7 @@ tfoot{
   color: goldenrod;
   padding: 3vw;
   text-align: right;
+  background-color: bisque;
   }
 
 th {
@@ -54,6 +58,7 @@ th {
 h1 {
   font-size: 10vw;
   color: darkolivegreen;
+  font-family: 'Orbitron', sans-serif;
 }
 
 h2{
@@ -88,6 +93,7 @@ p {
   font-size: 5vw;
   color: tan;
   padding: 2vw;  
+  font-family: 'Amatic SC', cursive;
 }
 
 legend{
